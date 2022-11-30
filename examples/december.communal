@@ -2,6 +2,10 @@ hotWaterTariff: 176.83
 coldWaterTariff: 45.88
 waterSinkTariff: 35.5
 
+T1Tariff: 1
+T2Tariff: 1
+T3Tariff: 1
+
 previousHotWater: 93.150
 previousColdWater: 170.116
 

@@ -15,6 +15,10 @@ const char *kGenFileContent =
     "coldWaterTariff: 45.88\n"
     "waterSinkTariff: 35.5\n"
     "\n"
+    "T1Tariff: 1\n"
+    "T2Tariff: 1\n"
+    "T3Tariff: 1\n"
+    "\n"
     "previousHotWater: 93.150\n"
     "previousColdWater: 170.116\n"
     "\n"
@@ -159,6 +163,9 @@ bool CommunalCalculator::Init(const std::filesystem::path &filename) {
   bool result = get_number(&hotWaterTariff_, "hotWaterTariff:");
   result = get_number(&coldWaterTariff_, "coldWaterTariff:") && result;
   result = get_number(&waterSinkTariff_, "waterSinkTariff:") && result;
+  result = get_number(&t1Tariff, "T1Tariff:") && result;
+  result = get_number(&t2Tariff, "T2Tariff:") && result;
+  result = get_number(&t3Tariff, "T3Tariff:") && result;
   result = get_number(&previousHotWater_, "previousHotWater:") && result;
   result = get_number(&previousColdWater_, "previousColdWater:") && result;
   result = get_number(&currentHotWater_, "currentHotWater:") && result;
@@ -203,9 +210,9 @@ float CommunalCalculator::CalculateSummary() const {
   msg += ToString(water_sink);
   std::cout << msg << std::endl;
 
-  auto t1_summary = CalcSummary(currentT1_, previosT1_, 1.0, "T1Summary");
-  auto t2_summary = CalcSummary(currentT2_, previosT2_, 1.0, "T2Summary");
-  auto t3_summary = CalcSummary(currentT3_, previosT3_, 1.0, "T3Summary");
+  auto t1_summary = CalcSummary(currentT1_, previosT1_, t1Tariff, "T1Summary");
+  auto t2_summary = CalcSummary(currentT2_, previosT2_, t2Tariff, "T2Summary");
+  auto t3_summary = CalcSummary(currentT3_, previosT3_, t3Tariff, "T3Summary");
 
   float summary = hot_water + cold_water + water_sink + t1_summary +
                   t2_summary + t3_summary;

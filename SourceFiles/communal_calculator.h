@@ -16,6 +16,10 @@ class CommunalCalculator final {
   float coldWaterTariff_{0};
   float waterSinkTariff_{0};
 
+  float t1Tariff{0};
+  float t2Tariff{0};
+  float t3Tariff{0};
+
   float previousHotWater_{0};
   float previousColdWater_{0};
 
