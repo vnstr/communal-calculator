@@ -1,5 +1,5 @@
-#ifndef SOURCEFILES_COMMUNAL_CALCULATOR_H_
-#define SOURCEFILES_COMMUNAL_CALCULATOR_H_
+#ifndef SOURCEFILES_CORE_COMMUNAL_CALCULATOR_H_
+#define SOURCEFILES_CORE_COMMUNAL_CALCULATOR_H_
 
 #include <filesystem>
 #include <string>
@@ -41,4 +41,4 @@ class CommunalCalculator final {
   Communal communal_;
 };
 
-#endif  // SOURCEFILES_COMMUNAL_CALCULATOR_H_
+#endif  // SOURCEFILES_CORE_COMMUNAL_CALCULATOR_H_
