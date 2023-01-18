@@ -1,4 +1,4 @@
-#include "communal_calculator.h"
+#include "core/communal_calculator.h"
 
 #include <algorithm>
 #include <cctype>
@@ -127,6 +127,9 @@ void CommunalCalculator::GenFile(const std::filesystem::path &filename) {
   file << kGenFileContent << std::endl;
 }
 
+CommunalCalculator::CommunalCalculator(const Communal &communal)
+    : communal_(communal) {}
+
 bool CommunalCalculator::Init(const std::filesystem::path &filename) {
   std::ifstream file;
 
@@ -160,22 +163,29 @@ bool CommunalCalculator::Init(const std::filesystem::path &filename) {
     return true;
   };
 
-  bool result = get_number(&hotWaterTariff_, "hotWaterTariff:");
-  result = get_number(&coldWaterTariff_, "coldWaterTariff:") && result;
-  result = get_number(&waterSinkTariff_, "waterSinkTariff:") && result;
-  result = get_number(&t1Tariff, "T1Tariff:") && result;
-  result = get_number(&t2Tariff, "T2Tariff:") && result;
-  result = get_number(&t3Tariff, "T3Tariff:") && result;
-  result = get_number(&previousHotWater_, "previousHotWater:") && result;
-  result = get_number(&previousColdWater_, "previousColdWater:") && result;
-  result = get_number(&currentHotWater_, "currentHotWater:") && result;
-  result = get_number(&currentColdWater_, "currentColdWater:") && result;
-  result = get_number(&previosT1_, "previosT1:") && result;
-  result = get_number(&previosT2_, "previosT2:") && result;
-  result = get_number(&previosT3_, "previosT3:") && result;
-  result = get_number(&currentT1_, "currentT1:") && result;
-  result = get_number(&currentT2_, "currentT2:") && result;
-  result = get_number(&currentT3_, "currentT3:") && result;
+  bool result = get_number(&communal_.hotWaterTariff, "hotWaterTariff:");
+  result = get_number(&communal_.coldWaterTariff, "coldWaterTariff:") && result;
+  result = get_number(&communal_.waterSinkTariff, "waterSinkTariff:") && result;
+  result = get_number(&communal_.t1Tariff, "T1Tariff:") && result;
+  result = get_number(&communal_.t2Tariff, "T2Tariff:") && result;
+  result = get_number(&communal_.t3Tariff, "T3Tariff:") && result;
+
+  result =
+      get_number(&communal_.previousHotWater, "previousHotWater:") && result;
+  result =
+      get_number(&communal_.previousColdWater, "previousColdWater:") && result;
+
+  result = get_number(&communal_.currentHotWater, "currentHotWater:") && result;
+
+  result =
+      get_number(&communal_.currentColdWater, "currentColdWater:") && result;
+
+  result = get_number(&communal_.previosT1, "previosT1:") && result;
+  result = get_number(&communal_.previosT2, "previosT2:") && result;
+  result = get_number(&communal_.previosT3, "previosT3:") && result;
+  result = get_number(&communal_.currentT1, "currentT1:") && result;
+  result = get_number(&communal_.currentT2, "currentT2:") && result;
+  result = get_number(&communal_.currentT3, "currentT3:") && result;
 
   if (!result) {
     std::cout << err_msg << std::endl;
@@ -187,13 +197,13 @@ bool CommunalCalculator::Init(const std::filesystem::path &filename) {
 float CommunalCalculator::CalculateSummary() const {
   float hot_water_diff = 0;
   auto hot_water =
-      CalcSummary(currentHotWater_, previousHotWater_, hotWaterTariff_,
-                  "HotWaterSummary", &hot_water_diff);
+      CalcSummary(communal_.currentHotWater, communal_.previousHotWater,
+                  communal_.hotWaterTariff, "HotWaterSummary", &hot_water_diff);
 
   float cold_water_diff = 0;
-  auto cold_water =
-      CalcSummary(currentColdWater_, previousColdWater_, coldWaterTariff_,
-                  "ColdWaterSummary", &cold_water_diff);
+  auto cold_water = CalcSummary(
+      communal_.currentColdWater, communal_.previousColdWater,
+      communal_.coldWaterTariff, "ColdWaterSummary", &cold_water_diff);
 
   std::string msg;
   msg.reserve(128);
@@ -203,16 +213,23 @@ float CommunalCalculator::CalculateSummary() const {
   msg += " + ";
   msg += ToString(cold_water_diff);
   msg += ") * ";
-  msg += ToString(waterSinkTariff_);
+  msg += ToString(communal_.waterSinkTariff);
   msg += " = ";
 
-  float water_sink = (hot_water_diff + cold_water_diff) * waterSinkTariff_;
+  float water_sink =
+      (hot_water_diff + cold_water_diff) * communal_.waterSinkTariff;
+
   msg += ToString(water_sink);
   std::cout << msg << std::endl;
 
-  auto t1_summary = CalcSummary(currentT1_, previosT1_, t1Tariff, "T1Summary");
-  auto t2_summary = CalcSummary(currentT2_, previosT2_, t2Tariff, "T2Summary");
-  auto t3_summary = CalcSummary(currentT3_, previosT3_, t3Tariff, "T3Summary");
+  auto t1_summary = CalcSummary(communal_.currentT1, communal_.previosT1,
+                                communal_.t1Tariff, "T1Summary");
+
+  auto t2_summary = CalcSummary(communal_.currentT2, communal_.previosT2,
+                                communal_.t2Tariff, "T2Summary");
+
+  auto t3_summary = CalcSummary(communal_.currentT3, communal_.previosT3,
+                                communal_.t3Tariff, "T3Summary");
 
   float summary = hot_water + cold_water + water_sink + t1_summary +
                   t2_summary + t3_summary;

@@ -22,10 +22,23 @@ find_package(Qt6 REQUIRED COMPONENTS Widgets)
 
 # ------------
 
+set(
+  CORE_SOURCES
+  SourceFiles/core/communal_calculator.h
+  SourceFiles/core/communal_calculator.cpp
+)
+
+set(
+  UI_SOURCES
+  SourceFiles/ui/main_window.h
+  SourceFiles/ui/main_window.cpp
+  SourceFiles/ui/mainwindow.ui
+)
+
 add_executable(${PROJECT_NAME}
   SourceFiles/main.cpp
-  SourceFiles/communal_calculator.h
-  SourceFiles/communal_calculator.cpp
+  ${CORE_SOURCES}
+  ${UI_SOURCES}
 )
 
 target_include_directories(${PROJECT_NAME} PRIVATE SourceFiles)
