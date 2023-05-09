@@ -1,0 +1,18 @@
+Checks: '
+  google-*,
+  cppcoreguidelines-*,
+  modernize-*,
+  performance-*,
+  readability-*,
+  clang-analyzer-*,
+  # Avoid Qt: new QObject(parent)
+  -cppcoreguidelines-owning-memory,
+  # Avoid Qt: public slot
+  -readability-redundant-access-specifiers
+ '
+
+FormatStyle: 'file'
+
+# Exclude auto-generated files by Qt
+AnalyzeTemporaryDtors: false
+

@@ -1,49 +1,140 @@
 cmake_minimum_required(VERSION 3.24)
 
-set(CMAKE_CXX_STANDARD 17)
+if(NOT DEFINED CMAKE_CXX_STANDARD)
+  set(CMAKE_CXX_STANDARD 17)
+endif()
 
 project(communal-calculator)
+ 
+option(
+  COMMUNALCALCULATOR_BUILD_MODEL_TESTS
+  "Build communal_calculator model tests"
+  OFF
+)
 
-# Qt setup ---
+# Dependency -------------------------------------------------------------------
+
+if(NOT DEFINED COMMUNALCALCULATOR_THIRD_PARTY_LIBS_PATH)
+  message(FATAL_ERROR "COMMUNALCALCULATOR_THIRD_PARTY_LIBS_PATH not defined")
+endif()
+
+set(
+  CMAKE_PREFIX_PATH
+  ${CMAKE_PREFIX_PATH}
+  ${COMMUNALCALCULATOR_THIRD_PARTY_LIBS_PATH}
+)
+
+find_package(Qt6 COMPONENTS Quick REQUIRED)
+
+set(
+  app_third_party_libs
+  Qt6::Quick
+)
+
+# Qt setup ---------------------------------------------------------------------
 
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
 
-if(NOT DEFINED ENV{QT6_DIR})
-  message(FATAL_ERROR "QT6_DIR was not found")
-endif()
-
-message(STATUS "Using Qt6: \"$ENV{QT6_DIR}\"")
-
-set(CMAKE_PREFIX_PATH ${CMAKE_PREFIX_PATH}$ENV{QT6_DIR})
-
-find_package(Qt6 REQUIRED COMPONENTS Widgets)
-
-# ------------
+# Sources ----------------------------------------------------------------------
 
 set(
-  CORE_SOURCES
-  SourceFiles/core/communal_calculator.h
-  SourceFiles/core/communal_calculator.cpp
+  model_lib_include_dirs
+  SourceFiles/model
 )
 
 set(
-  UI_SOURCES
-  SourceFiles/ui/main_window.h
-  SourceFiles/ui/main_window.cpp
-  SourceFiles/ui/mainwindow.ui
+  model_lib_src
+  SourceFiles/model/core/calculator.cpp
+  SourceFiles/model/core/calculator.h
+  SourceFiles/model/core/model.cpp
+  SourceFiles/model/core/model.h
 )
 
-add_executable(${PROJECT_NAME}
+set(
+  app_resources
+  Resources/icons/icons.qrc
+  Resources/qml/qml.qrc
+)
+
+set(
+  app_include_dirs
+  SourceFiles
+)
+
+set(
+  app_src
+  SourceFiles/model_view/model_view.cpp
+  SourceFiles/model_view/model_view.h
+  SourceFiles/view/guid_application.cpp
+  SourceFiles/view/guid_application.h
   SourceFiles/main.cpp
-  ${CORE_SOURCES}
-  ${UI_SOURCES}
 )
 
-target_include_directories(${PROJECT_NAME} PRIVATE SourceFiles)
+source_group(
+  TREE
+  ${CMAKE_CURRENT_SOURCE_DIR}
+  FILES
+  ${app_src}
+  ${model_lib_src}
+)
+
+# Target -----------------------------------------------------------------------
+
+set(model_lib_target communal-calculator-model-lib)
+set(app_target ${PROJECT_NAME})
+
+add_library(
+  ${model_lib_target}
+  ${model_lib_src}
+)
+
+target_include_directories(
+  ${model_lib_target}
+  PUBLIC
+  ${model_lib_include_dirs}
+)
+
+add_executable(
+  ${app_target}
+  ${app_resources}
+  ${app_src}
+)
+
+target_include_directories(
+  ${app_target}
+  PRIVATE
+  ${app_include_dirs}
+)
 
 target_link_libraries(
-  ${PROJECT_NAME}
-  Qt6::Widgets
+  ${app_target}
+  PRIVATE
+  ${model_lib_target}
+  ${app_third_party_libs}
 )
+
+if (APPLE)
+
+  # Fix error:
+  # module "QtQuick" plugin "qtquick2plugin" not found
+  # in static linked application ---
+
+  get_target_property(QT_TARGET_TYPE Qt6::Core TYPE)
+  if(${QT_TARGET_TYPE} STREQUAL "STATIC_LIBRARY")
+    find_package(Qt6QmlImportScanner REQUIRED)
+    qt6_import_qml_plugins(${CMAKE_PROJECT_NAME})
+  endif()
+
+  # ------------
+
+endif()
+
+if (COMMUNALCALCULATOR_BUILD_MODEL_TESTS)
+  add_subdirectory(Tests)
+  set(model_tests_target communal-calculator-tests)
+  target_include_directories(${model_tests_target} PRIVATE ${app_include_dirs})
+  target_link_libraries(${model_tests_target} PRIVATE ${model_lib_target})
+endif()
+

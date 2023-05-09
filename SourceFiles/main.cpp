@@ -1,19 +1,13 @@
-#include <QApplication>
-#include <iostream>
+#include "view/guid_application.h"
 
-#include "ui/main_window.h"
+inline constexpr char const *kMainQmlPath = "qrc:/qml/Main.qml";
 
-int main(int argc, char **argv) {
-  try {
-    QApplication app(argc, argv);
+auto main(int argc, char *argv[]) -> int {
+  auto model = std::make_shared<CommunalCalculator::Core::Model>();
 
-    Calc::Ui::MainWindow main_window;
-    main_window.show();
+  auto model_view = std::make_shared<CommunalCalculator::ModelView>();
+  model_view->ConnectModel(model);
 
-    return app.exec();
-  } catch (...) {
-    std::cout << "Error: fatal: unhandled exception" << std::endl;
-  }
-
-  return 1;
+  CommunalCalculator::GuidApplication application(argc, argv, model_view);
+  return application.Start(kMainQmlPath);
 }
