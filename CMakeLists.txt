@@ -46,10 +46,15 @@ set(
 
 set(
   model_lib_src
+  SourceFiles/model/core/app_configuration.cpp
+  SourceFiles/model/core/app_configuration.h
   SourceFiles/model/core/calculator.cpp
   SourceFiles/model/core/calculator.h
+  SourceFiles/model/core/communal_counter.cpp
+  SourceFiles/model/core/communal_counter.h
   SourceFiles/model/core/model.cpp
   SourceFiles/model/core/model.h
+  SourceFiles/model/core/observer.h
 )
 
 set(

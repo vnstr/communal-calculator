@@ -20,6 +20,15 @@ set(
 
 set(
   sources
+  SourceFiles/core/app_configuration_test.h
+  SourceFiles/core/calculator_test.cpp
+  SourceFiles/core/calculator_test.h
+  SourceFiles/core/communal_counter_test.cpp
+  SourceFiles/core/communal_counter_test.h
+  SourceFiles/core/model_test.cpp
+  SourceFiles/core/model_test.h
+  SourceFiles/core/observer_test.cpp
+  SourceFiles/core/observer_test.h
   SourceFiles/main.cpp
 )
 

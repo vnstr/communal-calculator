@@ -7,6 +7,7 @@
 #include <QVariant>
 #include <memory>
 
+#include "core/communal_counter.h"
 #include "core/model.h"
 
 namespace CommunalCalculator {
@@ -30,6 +31,9 @@ class ModelView : public QObject {
   virtual auto onCalculateSummary(const QMap<QString, QVariant> &values) -> int;
 
  private:
+  auto CreatCommunalCounter(Core::CommunalCounter::Type type)
+      -> std::shared_ptr<Core::CommunalCounter>;
+
   std::shared_ptr<Core::Model> model_;
 };
 
