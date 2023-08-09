@@ -31,6 +31,8 @@ set(
   SourceFiles/core/model_test.h
   SourceFiles/core/observer_test.cpp
   SourceFiles/core/observer_test.h
+  SourceFiles/core/workspace_test.cpp
+  SourceFiles/core/workspace_test.h
   SourceFiles/main.cpp
 )
 

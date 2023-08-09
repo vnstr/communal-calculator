@@ -57,6 +57,8 @@ set(
   SourceFiles/model/core/model.cpp
   SourceFiles/model/core/model.h
   SourceFiles/model/core/observer.h
+  SourceFiles/model/core/workspace.cpp
+  SourceFiles/model/core/workspace.h
 )
 
 set(
