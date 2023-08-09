@@ -20,6 +20,8 @@ set(
 
 set(
   sources
+  SourceFiles/core/app_cfg_manager_test.cpp
+  SourceFiles/core/app_cfg_manager_test.h
   SourceFiles/core/app_configuration_test.h
   SourceFiles/core/calculator_test.cpp
   SourceFiles/core/calculator_test.h

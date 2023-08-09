@@ -46,6 +46,8 @@ set(
 
 set(
   model_lib_src
+  SourceFiles/model/core/app_cfg_manager.cpp
+  SourceFiles/model/core/app_cfg_manager.h
   SourceFiles/model/core/app_configuration.cpp
   SourceFiles/model/core/app_configuration.h
   SourceFiles/model/core/calculator.cpp
