@@ -59,6 +59,8 @@ set(
   SourceFiles/model/core/observer.h
   SourceFiles/model/core/workspace.cpp
   SourceFiles/model/core/workspace.h
+  SourceFiles/model/wrappers/cstd_wrapper.cpp
+  SourceFiles/model/wrappers/cstd_wrapper.h
 )
 
 set(

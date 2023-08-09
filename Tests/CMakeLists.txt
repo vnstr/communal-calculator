@@ -33,6 +33,7 @@ set(
   SourceFiles/core/observer_test.h
   SourceFiles/core/workspace_test.cpp
   SourceFiles/core/workspace_test.h
+  SourceFiles/wrappers/cstd_wrapper_test.h
   SourceFiles/main.cpp
 )
 
