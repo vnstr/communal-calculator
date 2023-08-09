@@ -19,7 +19,7 @@ void CommunalCounter::SetPrevValue(float value) { prevValue_ = value; }
 
 auto CommunalCounter::GetPrevValue() const -> float { return prevValue_; }
 
-void CommunalCounter::SetCurValue(float value) { prevValue_ = value; }
+void CommunalCounter::SetCurValue(float value) { curValue_ = value; }
 
 auto CommunalCounter::GetCurValue() const -> float { return curValue_; }
 
@@ -33,7 +33,7 @@ auto CommunalCounter::GetName() -> std::string {
       return "None";
     }
     case Type::kHotWater: {
-      return "How Water";
+      return "Hot Water";
     }
     case Type::kColdWater: {
       return "Cold Water";

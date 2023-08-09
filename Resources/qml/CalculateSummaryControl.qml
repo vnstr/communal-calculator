@@ -4,6 +4,7 @@ import QtQuick.Layouts
 
 Rectangle {
   property alias backgroundColor: mainRectangle.color
+  property alias logText: logTextInput.text
 
   signal calculateSummary()
 

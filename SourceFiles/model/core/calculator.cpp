@@ -154,6 +154,10 @@ auto Calculator::ToString(float number) -> std::string {
   str.reserve(kReserveSize);
 
   str = std::to_string(integer);
+  if (fractional_int == 0) {
+    return str;
+  }
+
   str += ".";
   str += std::to_string(fractional_int);
 

@@ -12,7 +12,8 @@
 
 namespace CommunalCalculator {
 
-class ModelView : public QObject {
+class ModelView : public QObject,
+                  public std::enable_shared_from_this<ModelView> {
   Q_OBJECT
 
  public:
@@ -27,12 +28,19 @@ class ModelView : public QObject {
 
   void ConnectModel(const std::shared_ptr<Core::Model> &model_view);
 
+ signals:
+  void summaryCalculated(const QMap<QString, QVariant> &result);
+
  public slots:
-  virtual auto onCalculateSummary(const QMap<QString, QVariant> &values) -> int;
+  virtual void onCalculateSummary(const QMap<QString, QVariant> &values);
 
  private:
-  auto CreatCommunalCounter(Core::CommunalCounter::Type type)
+  static auto CreatCommunalCounter(Core::CommunalCounter::Type type)
       -> std::shared_ptr<Core::CommunalCounter>;
+
+  // Because in lambda can't use 'emit'
+  void EmitSummaryCalculated(const QMap<QString, QVariant> &result);
+  // ---------------------------------------------------------------------------
 
   std::shared_ptr<Core::Model> model_;
 };

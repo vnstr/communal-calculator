@@ -5,6 +5,20 @@ import QtQuick.Layouts
 Page {
   id: calculateView
 
+  Connections {
+    target: modelView
+    ignoreUnknownSignals: true
+    function onSummaryCalculated(calculation) {
+      let log = calculation.log;
+      let result = calculation.result
+
+      let text = log
+      text = text.concat("\nSummary: ", result)
+
+      calculateSummaryControl.logText = text
+    }
+  }
+
   focusPolicy: Qt.ClickFocus
 
   background: Rectangle {
@@ -30,7 +44,7 @@ Page {
     spacing: 10
 
     CounterCell {
-      id: hotWaterCounterCell
+      id: coldWaterCounterCell
 
       Layout.alignment: internal.counterCellsAlignment
       Layout.leftMargin: internal.counterCellsLeftMargins
@@ -39,15 +53,15 @@ Page {
       Layout.fillWidth: internal.counterCellsFillWidth
       height: internal.counterCellsFillHeight
 
-      titleText: qsTr("Hot water")
+      titleText: qsTr("Cold water")
 
       onInputFinished: {
-        coldWaterCounterCell.prevDigitsTextInput.forceActiveFocus()
+        hotWaterCounterCell.prevDigitsTextInput.forceActiveFocus()
       }
     }
 
     CounterCell {
-      id: coldWaterCounterCell
+      id: hotWaterCounterCell
 
       Layout.alignment: internal.counterCellsAlignment
       Layout.leftMargin: internal.counterCellsLeftMargins
@@ -55,7 +69,7 @@ Page {
       Layout.fillWidth: internal.counterCellsFillWidth
       height: internal.counterCellsFillHeight
 
-      titleText: qsTr("Cold water")
+      titleText: qsTr("Hot water")
 
       onInputFinished: {
         electricityT1CounterCell.prevDigitsTextInput.forceActiveFocus()
@@ -111,6 +125,8 @@ Page {
     }
 
     CalculateSummaryControl {
+      id: calculateSummaryControl
+
       Layout.alignment: Qt.AlignTop | Qt.AlignHCenter
       Layout.leftMargin: 16
       Layout.rightMargin: 16
@@ -122,16 +138,16 @@ Page {
 
       onCalculateSummary: {
         let values = {
-          "hotWaterPrev": hotWaterCounterCell.prevDigitsTextInput.text,
-          "hotWaterCur": hotWaterCounterCell.curDigitsTextInput.text,
           "coldWaterPrev": coldWaterCounterCell.prevDigitsTextInput.text,
           "coldWaterCur": coldWaterCounterCell.curDigitsTextInput.text,
+          "hotWaterPrev": hotWaterCounterCell.prevDigitsTextInput.text,
+          "hotWaterCur": hotWaterCounterCell.curDigitsTextInput.text,
           "T1Prev": electricityT1CounterCell.prevDigitsTextInput.text,
           "T1Cur": electricityT1CounterCell.curDigitsTextInput.text,
           "T2Prev": electricityT2CounterCell.prevDigitsTextInput.text,
           "T2Cur": electricityT2CounterCell.curDigitsTextInput.text,
           "T3Prev": electricityT3CounterCell.prevDigitsTextInput.text,
-          "T3Cur": electricityT3CounterCell.curDigitsTextInput
+          "T3Cur": electricityT3CounterCell.curDigitsTextInput.text
         }
 
         modelView.onCalculateSummary(values)

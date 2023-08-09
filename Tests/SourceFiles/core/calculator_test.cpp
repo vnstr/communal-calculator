@@ -264,6 +264,14 @@ TEST_F(CalculatorTest, CalculateWaterSinkSummaryColdHotWater) {
   EXPECT_EQ(kExpectedCalculationLog, calculation_log);
 }
 
+TEST_F(CalculatorTest, ToString15) {
+  constexpr float kInput = 15;
+  constexpr char const *kExpected = "15";
+
+  auto actually = calculatorMock_->RealToString(kInput);
+  EXPECT_EQ(kExpected, actually);
+}
+
 TEST_F(CalculatorTest, ToString15D1998) {
   constexpr float kInput = 15.1998;
   constexpr char const *kExpected = "15.2";

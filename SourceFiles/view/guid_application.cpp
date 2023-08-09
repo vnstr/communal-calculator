@@ -11,14 +11,15 @@ GuidApplication::GuidApplication(int &argc, char **argv,
 
 auto GuidApplication::Start(const char *qml_main_path) -> int {
   QQmlApplicationEngine engine;
+
+  auto *root_context = engine.rootContext();
+  root_context->setContextProperty("modelView", modelView_.get());
+
   engine.load(QUrl(qml_main_path));
 
   if (engine.rootObjects().isEmpty()) {
     return -1;
   }
-
-  auto *root_context = engine.rootContext();
-  root_context->setContextProperty("modelView", modelView_.get());
 
   return QGuiApplication::exec();
 }
