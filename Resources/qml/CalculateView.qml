@@ -13,7 +13,7 @@ Page {
       let result = calculation.result
 
       let text = log
-      text = text.concat("\nSummary: ", result)
+      text = text.concat("\n\nSummary: ", result)
 
       calculateSummaryControl.logText = text
     }

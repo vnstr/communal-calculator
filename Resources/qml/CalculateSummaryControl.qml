@@ -29,8 +29,10 @@ Rectangle {
         anchors.fill: parent
 
         verticalAlignment: TextEdit.AlignVCenter
-        horizontalAlignment: TextEdit.AlignHCenter
-        color: "#aaa"
+        horizontalAlignment: TextEdit.AlignLeft
+        leftPadding: 32
+
+        color: "#fef1e2"
         readOnly: true
         selectByMouse: true
 
