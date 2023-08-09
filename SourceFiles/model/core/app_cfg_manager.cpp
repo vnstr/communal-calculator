@@ -4,6 +4,14 @@
 
 namespace CommunalCalculator::Core {
 
+void AppCfgManager::SetDirPath(const std::filesystem::path &dir_path) {
+  dirPath_ = dir_path;
+}
+
+auto AppCfgManager::GetDirPath() const -> const std::filesystem::path & {
+  return dirPath_;
+}
+
 auto AppCfgManager::GetCfg() -> std::shared_ptr<AppConfiguration> {
   throw std::runtime_error("AppCfgManager::GetCfg: no implementation");
 }
