@@ -22,7 +22,8 @@ Rectangle {
 
     color: "#eeeeee"
 
-    validator: IntValidator {
+    validator: DoubleValidator {
+      locale: "en_US"
       bottom: 0
       top: 99999999
     }
