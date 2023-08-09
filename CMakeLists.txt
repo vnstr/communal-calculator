@@ -61,6 +61,8 @@ set(
   SourceFiles/model/core/workspace.h
   SourceFiles/model/wrappers/cstd_wrapper.cpp
   SourceFiles/model/wrappers/cstd_wrapper.h
+  SourceFiles/model/wrappers/std_of_stream_wrapper.cpp
+  SourceFiles/model/wrappers/std_of_stream_wrapper.h
 )
 
 set(

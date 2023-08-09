@@ -34,6 +34,7 @@ set(
   SourceFiles/core/workspace_test.cpp
   SourceFiles/core/workspace_test.h
   SourceFiles/wrappers/cstd_wrapper_test.h
+  SourceFiles/wrappers/std_of_stream_wrapper_test.h
   SourceFiles/main.cpp
 )
 
