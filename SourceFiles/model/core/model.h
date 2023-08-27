@@ -6,7 +6,6 @@
 
 #include "core/app_configuration.h"
 #include "core/calculator.h"
-#include "core/communal_counter.h"
 #include "core/observer.h"
 
 namespace CommunalCalculator::Core {

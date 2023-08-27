@@ -3,6 +3,7 @@ build/
 CMakeLists.txt.user
 cmake-build*/
 .idea/
+.cache
 
 # Prerequisites
 *.d

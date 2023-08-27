@@ -14,16 +14,6 @@ option(
 
 # Dependency -------------------------------------------------------------------
 
-if(NOT DEFINED COMMUNALCALCULATOR_THIRD_PARTY_LIBS_PATH)
-  message(FATAL_ERROR "COMMUNALCALCULATOR_THIRD_PARTY_LIBS_PATH not defined")
-endif()
-
-set(
-  CMAKE_PREFIX_PATH
-  ${CMAKE_PREFIX_PATH}
-  ${COMMUNALCALCULATOR_THIRD_PARTY_LIBS_PATH}
-)
-
 find_package(Qt6 COMPONENTS Quick REQUIRED)
 
 set(
