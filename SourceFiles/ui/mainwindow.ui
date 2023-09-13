@@ -139,7 +139,7 @@
                 </size>
                </property>
                <property name="text">
-                <string>176.83</string>
+                <string>165.47</string>
                </property>
                <property name="alignment">
                 <set>Qt::AlignCenter</set>
@@ -230,7 +230,7 @@
                 </size>
                </property>
                <property name="text">
-                <string>45.88</string>
+                <string>50.93</string>
                </property>
                <property name="alignment">
                 <set>Qt::AlignCenter</set>
@@ -358,7 +358,7 @@
                 </size>
                </property>
                <property name="text">
-                <string>35.5</string>
+                <string>39.97</string>
                </property>
                <property name="alignment">
                 <set>Qt::AlignCenter</set>
@@ -500,7 +500,7 @@
                 </size>
                </property>
                <property name="text">
-                <string>1</string>
+                <string>8.23</string>
                </property>
                <property name="alignment">
                 <set>Qt::AlignCenter</set>
@@ -621,7 +621,7 @@
                 </size>
                </property>
                <property name="text">
-                <string>1</string>
+                <string>2.62</string>
                </property>
                <property name="alignment">
                 <set>Qt::AlignCenter</set>
@@ -690,7 +690,7 @@
                 </size>
                </property>
                <property name="text">
-                <string>1</string>
+                <string>5.66</string>
                </property>
                <property name="alignment">
                 <set>Qt::AlignCenter</set>
@@ -813,7 +813,7 @@
      <x>0</x>
      <y>0</y>
      <width>650</width>
-     <height>22</height>
+     <height>37</height>
     </rect>
    </property>
   </widget>
