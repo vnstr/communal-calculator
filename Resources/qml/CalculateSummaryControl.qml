@@ -53,6 +53,7 @@ Rectangle {
       id: calculateSummaryButton
 
       width: 75
+      radius: 16
       Layout.fillHeight: true
       Layout.alignment: Qt.AlignLeft
 
