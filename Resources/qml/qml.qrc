@@ -8,5 +8,6 @@
         <file>DigitsTextInput.qml</file>
         <file>CalculateSummaryControl.qml</file>
         <file>CustomButton.qml</file>
+        <file>SettingsPanel.qml</file>
     </qresource>
 </RCC>
