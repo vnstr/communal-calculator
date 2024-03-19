@@ -9,5 +9,7 @@
         <file>CalculateSummaryControl.qml</file>
         <file>CustomButton.qml</file>
         <file>SettingsPanel.qml</file>
+        <file>SettingCell.qml</file>
+        <file>TariffSettingsPanel.qml</file>
     </qresource>
 </RCC>

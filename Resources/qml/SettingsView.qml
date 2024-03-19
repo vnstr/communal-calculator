@@ -17,21 +17,18 @@ Page {
         id: internal
         property int panelsAlignment: Qt.AlignTop | Qt.AlignHCenter
         property int leftRightMargin: 16
-        property int panelRectangleHeight: 128
       }
 
       id: panelsLayout
 
       anchors.fill: parent
 
-      SettingsPanel {
+      TariffSettingsPanel {
           Layout.alignment: internal.panelsAlignment
           Layout.leftMargin: internal.leftRightMargin
           Layout.topMargin: 16
           Layout.rightMargin: internal.leftRightMargin
           Layout.fillWidth: true
-
-          panelRectangleHeight: internal.panelRectangleHeight
       }
   }
 }
